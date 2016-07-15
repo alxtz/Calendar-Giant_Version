@@ -111,12 +111,30 @@ public class CalendarFragment extends Fragment
 
     private void setCalendarRowHeight()
     {
-        String foo = "Sunday";
-        int resID = calendarFragment.getResources().getIdentifier(foo,"id",getActivity().getPackageName());
-        Log.d("CalendarLog","resID is : "+Integer.toString(resID));
-        RelativeLayout dayBlock = (RelativeLayout)calendarFragment.findViewById(resID);
-        ViewGroup.LayoutParams dayBlockParams = dayBlock.getLayoutParams();
-        dayBlockParams.height = 100;
-        dayBlock.setLayoutParams(dayBlockParams);
+        int commonHeight = (int)(pageHeight*0.941/6);
+        dayBlockCommonHeight = commonHeight;
+
+        String IDfoo;
+
+        for(int i=1; i<=35; ++i)
+        {
+            IDfoo = "DayBlock"+Integer.toString(i);
+            int resID = getResources().getIdentifier(IDfoo,"id",getActivity().getPackageName());
+            RelativeLayout dayBlock = (RelativeLayout)calendarFragment.findViewById(resID);
+            ViewGroup.LayoutParams dayBlockParams = dayBlock.getLayoutParams();
+            dayBlockParams.height = commonHeight;
+        }
+
+        commonHeight = pageHeight - defaultRowHeight - dayBlockCommonHeight*5;
+
+        for(int i=36; i<=42; ++i)
+        {
+            IDfoo = "DayBlock"+Integer.toString(i);
+            int resID = getResources().getIdentifier(IDfoo,"id",getActivity().getPackageName());
+            RelativeLayout dayBlock = (RelativeLayout)calendarFragment.findViewById(resID);
+            ViewGroup.LayoutParams dayBlockParams = dayBlock.getLayoutParams();
+            dayBlockParams.height = commonHeight;
+        }
+
     }
 }
