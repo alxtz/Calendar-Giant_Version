@@ -44,5 +44,5 @@
         android:id="@+id/CalendarViewPager"
         android:layout_below="@+id/TopBar"
         android:layout_centerHorizontal="true"
-        android:background="#667cdade" />
+        android:background="#ffffff" />
 </RelativeLayout>

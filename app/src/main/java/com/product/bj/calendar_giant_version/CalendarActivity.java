@@ -1,5 +1,9 @@
 package com.product.bj.calendar_giant_version;
 
+import android.content.Context;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,8 +12,14 @@ import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
+
+//TODO 調整Calendar方塊的部份都放在CalendarFragment裡面
 public class CalendarActivity extends AppCompatActivity
 {
+    //TODO Class基本數值
+    String packageName = getPackageName();
+    Context context;
+
     //TODO 基本數值
     int screenWidth;
     int screenHeight;
@@ -20,6 +30,10 @@ public class CalendarActivity extends AppCompatActivity
     int topBarHeight;
     int bottomBarHeight;
     int calendarViewPagerHeight;
+
+
+    //TODO ViewPager元素
+    ViewPager calendarViewPager = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -37,6 +51,10 @@ public class CalendarActivity extends AppCompatActivity
         //TODO 設定topBar的height,calendarView的height
         setTopBottomBarHeight();
         setCalendarViewPagerHeight();
+
+
+        //TODO 設定ViewPager
+        setViewPagerAndAdapter();
     }
 
     private void getScreenSize()
@@ -89,5 +107,50 @@ public class CalendarActivity extends AppCompatActivity
         calendarViewPager.setLayoutParams(calendarViewPagerParams);
 
         calendarViewPagerHeight = calendarVPHeight;
+    }
+
+    private void setViewPagerAndAdapter()
+    {
+        context = this;
+
+        calendarViewPager = (ViewPager)findViewById(R.id.CalendarViewPager);
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        calendarViewPager.setAdapter(new CalendarViewPagerAdapter(fragmentManager , calendarViewPagerHeight , screenWidth , packageName , context));
+    }
+
+}
+
+class CalendarViewPagerAdapter extends FragmentPagerAdapter
+{
+    int pageMaxCount = 10;
+
+    int pageHeight;
+    int pageWidth;
+
+    String packageName;
+    Context context;
+
+    public CalendarViewPagerAdapter(FragmentManager fm , int inputPageHeight , int inputPageWidth , String inputPackageName , Context inputContext)
+    {
+        super(fm);
+        pageHeight = inputPageHeight;
+        pageWidth = inputPageWidth;
+        packageName = inputPackageName;
+        context = inputContext;
+    }
+
+    @Override
+    public Fragment getItem(int position)
+    {
+        Fragment newCalendarPage = new CalendarFragment(position , pageHeight , pageWidth , packageName , context);
+
+        return newCalendarPage;
+    }
+
+    @Override
+    public int getCount()
+    {
+        return pageMaxCount;
     }
 }
