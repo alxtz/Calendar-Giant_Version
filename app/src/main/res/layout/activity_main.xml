@@ -7,7 +7,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.product.bj.calendar_giant_version.MainActivity">
+    tools:context="com.product.bj.calendar_giant_version.MainActivity"
+    android:id="@+id/TopBar">
 
     <TextView
         android:layout_width="wrap_content"
@@ -35,7 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="OK"
-        android:id="@+id/button"
+        android:id="@+id/DayBlock1"
         android:layout_below="@+id/textView2"
         android:layout_centerHorizontal="true"
         android:onClick="startCalendarActivity" />
